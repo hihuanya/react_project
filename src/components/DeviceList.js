@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { Button, Form, Input, Popconfirm, Table } from 'antd';
+import {  Form, Input, Popconfirm, Table } from 'antd';
 import NewDevice from './NewDevice'
 
 const EditableContext = React.createContext(null);
@@ -84,11 +84,7 @@ const DeviceList = () => {
   // 创建一个 ref 来存储子组件的引用
   const childRef = useRef();
 
-  const showModal = () => {
-    if (childRef.current) {
-      childRef.current.showModal();
-    }
-  };
+
 
 
   const [dataSource, setDataSource] = useState([
@@ -96,16 +92,15 @@ const DeviceList = () => {
       key: '0',
       deviceName: 'device 0',
       serialNumber: 'NUMBER_0',
-      address: 'London, Park Lane no. 0',
+      location: 'London, Park Lane no. 0',
     },
     {
       key: '1',
       deviceName: 'device 1',
       serialNumber: 'NUMBER_1',
-      address: 'London, Park Lane no. 1',
+      location: 'London, Park Lane no. 1',
     },
   ]);
-  const [count, setCount] = useState(2);
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
@@ -123,7 +118,7 @@ const DeviceList = () => {
     },
     {
       title: '设备地址',
-      dataIndex: 'address',
+      dataIndex: 'location',
     },
     {
       title: '操作',
@@ -136,17 +131,7 @@ const DeviceList = () => {
         ) : null,
     },
   ];
-  const handleAdd = () => {
 
-    const newData = {
-      key: count,
-      deviceName: `device ${count}`,
-      serialNumber: `NUMBER_ ${count}`,
-      address: `London, Park Lane no. ${count}`,
-    };
-    setDataSource([...dataSource, newData]);
-    setCount(count + 1);
-  };
   const handleSave = (row) => {
     const newData = [...dataSource];
     const index = newData.findIndex((item) => row.key === item.key);
@@ -183,15 +168,6 @@ const DeviceList = () => {
        <NewDevice ref={childRef}/>
        <br/>
        <br/>
-      <Button
-        onClick={handleAdd}
-        type="primary"
-        style={{
-          marginBottom: 16,
-        }}
-      >
-        Add a row
-      </Button>
       <Table
         components={components}
         rowClassName={() => 'editable-row'}
