@@ -79,28 +79,15 @@ const EditableCell = ({
   }
   return <td {...restProps}>{childNode}</td>;
 };
-const DeviceList = () => {
+const DeviceList = ({allDevices,deviceManage}) => {
+
+  // console.log(allDevices)
 
   // 创建一个 ref 来存储子组件的引用
   const childRef = useRef();
 
+  const [dataSource, setDataSource] = useState([]);
 
-
-
-  const [dataSource, setDataSource] = useState([
-    {
-      key: '0',
-      deviceName: 'device 0',
-      serialNumber: 'NUMBER_0',
-      location: 'London, Park Lane no. 0',
-    },
-    {
-      key: '1',
-      deviceName: 'device 1',
-      serialNumber: 'NUMBER_1',
-      location: 'London, Park Lane no. 1',
-    },
-  ]);
   const handleDelete = (key) => {
     const newData = dataSource.filter((item) => item.key !== key);
     setDataSource(newData);
@@ -165,7 +152,9 @@ const DeviceList = () => {
   });
   return (
     <div>
-       <NewDevice ref={childRef}/>
+       {/* <NewDevice ref={childRef} deviceManage={deviceManage} web3Provider={web3Provider}/> */}
+       <NewDevice ref={childRef} deviceManage={deviceManage} />
+
        <br/>
        <br/>
       <Table

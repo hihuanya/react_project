@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.9;
 
-import "hardhat/console.sol";
 // Uncomment this line to use console.log
-// import "hardhat/console.sol";
+import "hardhat/console.sol";
 
 contract DeviceManage {
 
@@ -21,7 +20,7 @@ contract DeviceManage {
 
 
     // 添加设备
-    function addDevice(string memory _name, string memory  _serialNumber,string  memory _location) public {
+    function addDevice(string memory _name, string memory  _serialNumber,string  memory _location) public  {
         maxSupply++;
         totalSupply++;
         devices[maxSupply] = Device(_name, _serialNumber, _location);

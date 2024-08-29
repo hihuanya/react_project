@@ -1,5 +1,5 @@
 import React, { useState ,forwardRef,useImperativeHandle} from 'react';
-import { Button, Modal , Form, Input, Select, Space,Flex  } from 'antd';
+import { Button, Modal , Form, Input,  Space,Flex  } from 'antd';
 
 const layout = {
   labelCol: {
@@ -29,8 +29,8 @@ const boxStyle = {
 
 // 使用 forwardRef 来获取 ref
 
-const NewDevice =forwardRef((props, ref) => {
-
+// const NewDevice =forwardRef((deviceManage,web3Provider, ref,) => {
+  const NewDevice =forwardRef((deviceManage, ref,) => {
 
   const [form] = Form.useForm();
 
@@ -52,9 +52,37 @@ const NewDevice =forwardRef((props, ref) => {
         
       }));
 
-  const handleOk = () => {
+  const handleOk = async  () => {
+
     var values = form.getFieldValue();
     console.log(values);
+    console.log(deviceManage);
+  
+
+
+    // const signer = await web3Provider.getSigner()
+    // const transaction = await deviceManage.connect(signer).addDevice(values.deviceName,values.serialNumber , values.location);
+    // console.log(deviceManage);
+    // const transaction = await deviceManage.deviceManage.addDevice(values.deviceName,values.serialNumber , values.location);
+    // await transaction.wait();
+
+
+    try {
+
+      const transaction = await deviceManage.deviceManage.addDevice(values.deviceName, values.serialNumber, values.location);
+      await transaction.wait();
+
+
+  } catch (error) {
+      console.error('Error details:', error);
+  }
+  
+
+
+    
+    // const tx = await deviceManage.addDevice(values.deviceName,values.serialNumber , values.location);
+    // await tx.wait();
+    // console.log(values);
     // 关闭弹框
     setIsModalOpen(false);
   };
